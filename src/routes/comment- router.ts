@@ -22,7 +22,7 @@ commentsRouter.get("/:id", async (req: Request, res: Response) => {
       content: foundCommentById.content,
       commentatorInfo: {
         userId: foundCommentById.commentatorInfo.userId,
-        userLogin: foundCommentById.commentatorInfo.userId,
+        userLogin: foundCommentById.commentatorInfo.userLogin,
       },
       createdAt: foundCommentById.createdAt,
     };
@@ -79,7 +79,7 @@ commentsRouter.delete(
   }
 );
 postsRouter.get("/:postId/comments", async (req: Request, res: Response) => {
-  const foundedPost = await postsRepository.findPostById(req.params.commentId);
+  const foundedPost = await postsRepository.findPostById(req.params.postId);
   if (!foundedPost) {
     res.send(404);
     return

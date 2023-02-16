@@ -31,7 +31,7 @@ authRouter.post(
 );
 
 authRouter.get("/me", authMiddleware, async (req: Request, res: Response) => {
-  const myAuth = await usersServer.findUserById(req.user._id);
+  const myAuth = await usersServer.findUserById(req.user.id);
   const viewMyAuth = {
     email: myAuth!.email,
     login:myAuth!.login,
