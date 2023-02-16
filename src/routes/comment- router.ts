@@ -64,8 +64,11 @@ commentsRouter.delete(
     const isIdComment = await commentsRepository.findCommentById(
       req.params.commentId
     );
-    if (!(isIdComment!.commentatorInfo.userId === req.user.id)) {
+    if(isIdComment){
+
+    if (isIdComment.commentatorInfo.userId !== req.user.id) {
       res.send(403);
+      return;
     }
 
     const deletedComment = await commentsService.deleteComment(
@@ -76,13 +79,17 @@ commentsRouter.delete(
     } else {
       res.send(404);
     }
+  
+  } else {
+      res.send(404);
+    }
   }
 );
 postsRouter.get("/:postId/comments", async (req: Request, res: Response) => {
   const foundedPost = await postsRepository.findPostById(req.params.postId);
   if (!foundedPost) {
     res.send(404);
-    return
+    return;
   }
   const foundCommentsByPostId = await commentsRepository.findCommentsByPostId(
     req.params.postId,
@@ -141,7 +148,7 @@ postsRouter.post(
       };
       res.status(201).send(viewCreatedContent);
     } else {
-      res.send("ERROR POST");
+      res.send(404);
     }
   }
 );
