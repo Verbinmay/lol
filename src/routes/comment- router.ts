@@ -41,16 +41,21 @@ commentsRouter.put(
     const isIdComment = await commentsRepository.findCommentById(
       req.params.commentId
     );
-    if (!(isIdComment!.commentatorInfo.userId === req.user.id)) {
-      res.send(403);
-    }
+    if (isIdComment) {
+      if (isIdComment.commentatorInfo.userId !== req.user.id) {
+        res.send(403);
+        return;
+      }
 
-    const updatedComment = await commentsService.updateCommentById(
-      req.params.commentId,
-      req.body.content
-    );
-    if (updatedComment) {
-      res.send(204);
+      const updatedComment = await commentsService.updateCommentById(
+        req.params.commentId,
+        req.body.content
+      );
+      if (updatedComment) {
+        res.send(204);
+      } else {
+        res.send(404);
+      }
     } else {
       res.send(404);
     }
@@ -64,23 +69,21 @@ commentsRouter.delete(
     const isIdComment = await commentsRepository.findCommentById(
       req.params.commentId
     );
-    if(isIdComment){
+    if (isIdComment) {
+      if (isIdComment.commentatorInfo.userId !== req.user.id) {
+        res.send(403);
+        return;
+      }
 
-    if (isIdComment.commentatorInfo.userId !== req.user.id) {
-      res.send(403);
-      return;
-    }
-
-    const deletedComment = await commentsService.deleteComment(
-      req.params.commentId
-    );
-    if (deletedComment) {
-      res.send(204);
+      const deletedComment = await commentsService.deleteComment(
+        req.params.commentId
+      );
+      if (deletedComment) {
+        res.send(204);
+      } else {
+        res.send(404);
+      }
     } else {
-      res.send(404);
-    }
-  
-  } else {
       res.send(404);
     }
   }
