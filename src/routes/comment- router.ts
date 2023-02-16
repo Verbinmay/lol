@@ -101,7 +101,7 @@ postsRouter.get(
         }),
       };
       res.status(200).send(viewCommentsByPostId);
-    } else res.send(404);
+    } else res.send("ERROR GET");
   }
 );
 postsRouter.post("/:postId/comments", authMiddleware,contentCommentCreateValidation,inputValidationMiddleware,async(req:Request, res: Response)=>{
@@ -122,6 +122,6 @@ postsRouter.post("/:postId/comments", authMiddleware,contentCommentCreateValidat
         }
         res.status(201).send(viewCreatedContent)
     } else {
-        res.send(404)
+        res.send("ERROR POST")
     }
 } )
