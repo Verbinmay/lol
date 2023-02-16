@@ -34,9 +34,9 @@ commentsRouter.get("/:id", async (req: Request, res: Response) => {
 
 commentsRouter.put(
   "/:commentId",
+  authMiddleware,
   contentCommentCreateValidation,
   inputValidationMiddleware,
-  authMiddleware,
   async (req: Request, res: Response) => {
     const isIdComment = await commentsRepository.findCommentById(
       req.params.commentId
