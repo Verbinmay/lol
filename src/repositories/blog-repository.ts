@@ -67,7 +67,7 @@ export const blogsRepository = {
     },
     async createBlog(createdBlog: BlogViewModel) {
       const result = await blogsCollections.insertOne(createdBlog);
-      return blogsRepository.findBlogById(createdBlog.id);
+      return await blogsRepository.findBlogById(createdBlog.id);
     },
     async updateBlog(
       id: string,

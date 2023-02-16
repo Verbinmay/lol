@@ -3,7 +3,7 @@ import { jwtService } from "../application/jwt-service";
 import { usersServer } from "../domain/user-service";
 
 export const authMiddleware = async ( req: Request, res: Response, next : NextFunction)=> { 
-    if ( ! req.headers.autorization){
+    if ( !req.headers.authorization){
         res.send(401)
         return
     }

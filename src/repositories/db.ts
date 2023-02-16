@@ -1,6 +1,6 @@
 import { MongoClient } from "mongodb";
 import * as dotenv from 'dotenv'
-import { BlogViewModel, PostViewModel, UserViewModel } from "../types";
+import { BlogViewModel, PostViewModel, UserDBModel, UserViewModel } from "../types";
 dotenv.config()
 
 const mongoUri = process.env.MONGO_URL;
@@ -16,7 +16,9 @@ export const blogsCollections = db
   export const postsCollections = db
   .collection<PostViewModel>("Posts");
   export const usersCollections = db
-  .collection("Users");
+  .collection<UserDBModel>("Users");
+  export const commentsCollections = db
+  .collection("Comments");
 
 
 

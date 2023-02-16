@@ -6,6 +6,7 @@ import { blogsRouter } from './routes/blog-router';
 import { postsRouter } from './routes/post-router';
 import { testingRouter } from './routes/testing-router';
 import { usersRouter } from './routes/user-router';
+import { commentsRouter } from './routes/comment- router';
 const app = express()
 const port = process.env.PORT || 3000;
 
@@ -18,6 +19,7 @@ app.use('/blogs', blogsRouter)
 app.use('/posts', postsRouter) 
 app.use('/testing', testingRouter)
 app.use('/users', usersRouter)
+app.use('/comments', commentsRouter)
 
 
 

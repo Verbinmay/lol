@@ -1,7 +1,7 @@
 import { ObjectId } from "mongodb";
 import { setting } from "../settings";
 import jwt from "jsonwebtoken";
-import { UserDBModel } from "../types";
+
 export const jwtService = {
   async createJWT(user:any) {
     const token = jwt.sign({ userId: user._id }, setting.JWT_SECRET, {

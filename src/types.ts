@@ -69,6 +69,10 @@ export type LoginInputModel = {
   password: string;
 };
 
+export type LoginSuccessViewModel = {
+  accessToken: string;
+};
+
 export type UserInputModel = {
   login: string;
   password: string;
@@ -82,8 +86,27 @@ export type UserViewModel = {
   createdAt: string;
 };
 
-export type UserDBModel= UserViewModel &  {
-  _id:any,
-  hash:string
+export type UserDBModel = UserViewModel & {
+  _id: any;
+  password: string;
 };
 
+export type CommentInputModel = {
+  content: string;
+};
+
+export type CommentatorInfo = {
+  userId: string;
+  userLogin: string;
+};
+
+export type CommentViewModel = {
+  id: string;
+  content: string;
+  commentatorInfo: CommentatorInfo;
+  createdAt: string;
+};
+
+export type PaginatorCommentViewModel = Paginator & {
+  items: CommentViewModel;
+};
