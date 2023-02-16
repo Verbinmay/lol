@@ -31,16 +31,16 @@ commentsRouter.get("/:id", async (req: Request, res: Response) => {
 });
 
 commentsRouter.put(
-  "/:id", contentCommentCreateValidation,inputValidationMiddleware,
+  "/:commentId", contentCommentCreateValidation,inputValidationMiddleware,
   authMiddleware,
   async (req: Request, res: Response) => {
-    const isIdComment = await commentsRepository.findCommentById(req.params.id);
-    if (!(isIdComment!.commentatorInfo.userId == req.user.id)) {
+    const isIdComment = await commentsRepository.findCommentById(req.params.commentId);
+    if (!(isIdComment!.commentatorInfo.userId == req.user.commentId)) {
       res.send(403);
     }
 
     const updatedComment = await commentsService.updateCommentById(
-      req.params.id,
+      req.params.commentId,
       req.body.content
     );
     if (updatedComment) {
@@ -52,15 +52,15 @@ commentsRouter.put(
 );
 
 commentsRouter.delete(
-  "/:id",
+  "/:commentId",
   authMiddleware,
   async (req: Request, res: Response) => {
-    const isIdComment = await commentsRepository.findCommentById(req.params.id);
-    if (!(isIdComment!.commentatorInfo.userId == req.user.id)) {
+    const isIdComment = await commentsRepository.findCommentById(req.params.commentId);
+    if (!(isIdComment!.commentatorInfo.userId == req.user.commentId)) {
       res.send(403);
     }
 
-    const deletedComment = await commentsService.deleteComment(req.params.id);
+    const deletedComment = await commentsService.deleteComment(req.params.commentId);
     if (deletedComment) {
       res.send(204);
     } else {
@@ -71,7 +71,7 @@ commentsRouter.delete(
 postsRouter.get(
   "/:postId/comments",
   async (req: Request, res: Response) => {
-    const foundedPost = await postsRepository.findPostById(req.params.postId);
+    const foundedPost = await postsRepository.findPostById(req.params.commentId);
     if (!foundedPost) {
       res.send(404);
     }
