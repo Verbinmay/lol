@@ -40,7 +40,7 @@ export const commentsService = {
       createdAt:isCreateAt,
       postId:postId}
 
-      const result = await commentsRepository.createComment(newComment)
+      const result = await commentsRepository.createComment(newComment);
       return result 
 
     
