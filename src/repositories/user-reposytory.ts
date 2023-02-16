@@ -74,7 +74,7 @@ export const usersRepository = {
     return searchUser;
   },
   async findUserById (id: any){
-    const foundUser = await usersCollections.findOne({_id:id })
+    const foundUser = await usersCollections.findOne({id:id })
     return foundUser
   },
 
