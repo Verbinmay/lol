@@ -3,7 +3,7 @@ import { commentsCollections } from "../repositories/db"
 
 export const commentsService = {
    async updateCommentById(id:string, content:string){
-    const result = await commentsRepository. updateCommentById(id, content)
+    const result = await commentsRepository.updateCommentById(id, content)
     return result 
    },
    async deleteComment(id:string) {
@@ -34,8 +34,8 @@ export const commentsService = {
       id: isId,
       content: content,
       commentatorInfo: {
-         userId:user.userId,
-         userLogin:user.userLogin
+         userId:user.id,
+         userLogin:user.login
       },
       createdAt:isCreateAt,
       postId:postId}

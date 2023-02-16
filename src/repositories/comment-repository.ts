@@ -8,7 +8,7 @@ export const commentsRepository = {
   async updateCommentById(id: string, content: string) {
     const result = await commentsCollections.updateOne(
       { id: id },
-      { content: content }
+      { $set: { content: content }}
     );
     return result.matchedCount === 1;
   },
@@ -70,4 +70,8 @@ export const commentsRepository = {
       };
       return newPaginatorComments;
   },
+  async createComment (newComment:any){
+    commentsCollections.insertOne(newComment)
+    return await commentsRepository.findCommentById(newComment.id)
+  }
 };

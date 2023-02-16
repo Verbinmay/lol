@@ -122,7 +122,12 @@ export const loginOrEmailValidation = body("loginOrEmail")
   .withMessage("Isnt email")
   .bail()
   
-
+export const contentCommentCreateValidation = body("content")
+.isString()
+  .withMessage("Isnt string")
+  .bail()
+  .isLength({ min:20, max: 300 })
+  .withMessage("content length must be min 20, max 300");
 
 export const inputValidationMiddleware = (
   req: Request,

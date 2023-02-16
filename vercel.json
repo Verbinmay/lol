@@ -1,6 +1,6 @@
 {
     "version": 2,
-    "name": "lich5",
+    "name": "lich6",
     "builds": [
        { "src": "src/index.ts", "use": "@vercel/node" }
     ],

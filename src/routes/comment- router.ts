@@ -2,6 +2,7 @@ import { Request, Response, Router } from "express";
 import { commentsService } from "../domain/comment -service";
 import { postsService } from "../domain/post-service";
 import { authMiddleware } from "../middleware/auth-middleware";
+import { contentCommentCreateValidation, inputValidationMiddleware } from "../middleware/input-validation-middleware";
 import { commentsRepository } from "../repositories/comment-repository";
 import { postsRepository } from "../repositories/post-repository";
 import { CommentViewModel, PaginatorCommentViewModel } from "../types";
@@ -30,7 +31,7 @@ commentsRouter.get("/:id", async (req: Request, res: Response) => {
 });
 
 commentsRouter.put(
-  "/:id",
+  "/:id", contentCommentCreateValidation,inputValidationMiddleware,
   authMiddleware,
   async (req: Request, res: Response) => {
     const isIdComment = await commentsRepository.findCommentById(req.params.id);
@@ -69,7 +70,6 @@ commentsRouter.delete(
 );
 postsRouter.get(
   "/:postId/comments",
-  authMiddleware,
   async (req: Request, res: Response) => {
     const foundedPost = await postsRepository.findPostById(req.params.postId);
     if (!foundedPost) {
@@ -104,19 +104,19 @@ postsRouter.get(
     } else res.send(404);
   }
 );
-postsRouter.post("/id/comments", authMiddleware,async(req:Request, res: Response)=>{
+postsRouter.post("/:postId/comments", authMiddleware,contentCommentCreateValidation,inputValidationMiddleware,async(req:Request, res: Response)=>{
     const foundedPost = await postsRepository.findPostById(req.params.postId);
     if (!foundedPost) {
       res.send(404);
     }
-    const createdComment = await commentsService.createComment(req.params.postId, req.body.content,req.user)
+    const createdComment = await commentsService.createComment(req.params.postId, req.body.content, req.user)
     if(createdComment){
         const viewCreatedContent = {
             id: createdComment.id,
             content:createdComment.content ,
             commentatorInfo:{
-                userId: req.user.id,
-                userLogin: req.user.login,
+                userId: createdComment.commentatorInfo.userId,
+                userLogin: createdComment.commentatorInfo.userLogin,
             },
             createdAt: createdComment.createdAt
         }
