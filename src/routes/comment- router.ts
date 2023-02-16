@@ -35,7 +35,7 @@ commentsRouter.put(
   authMiddleware,
   async (req: Request, res: Response) => {
     const isIdComment = await commentsRepository.findCommentById(req.params.commentId);
-    if (!(isIdComment!.commentatorInfo.userId == req.user.commentId)) {
+    if (!(isIdComment!.commentatorInfo.userId === req.user.id)) {
       res.send(403);
     }
 
@@ -56,7 +56,7 @@ commentsRouter.delete(
   authMiddleware,
   async (req: Request, res: Response) => {
     const isIdComment = await commentsRepository.findCommentById(req.params.commentId);
-    if (!(isIdComment!.commentatorInfo.userId == req.user.commentId)) {
+    if (!(isIdComment!.commentatorInfo.userId === req.user.id)) {
       res.send(403);
     }
 
