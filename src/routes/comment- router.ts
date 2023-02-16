@@ -53,8 +53,10 @@ commentsRouter.put(
       );
       if (updatedComment) {
         res.send(204);
+        return
       } else {
         res.send(404);
+        return
       }
     } else {
       res.send(404);
@@ -80,8 +82,10 @@ commentsRouter.delete(
       );
       if (deletedComment) {
         res.send(204);
+        return
       } else {
         res.send(404);
+        return
       }
     } else {
       res.send(404);
@@ -133,6 +137,7 @@ postsRouter.post(
     const foundedPost = await postsRepository.findPostById(req.params.postId);
     if (!foundedPost) {
       res.send(404);
+      return
     }
     const createdComment = await commentsService.createComment(
       req.params.postId,
