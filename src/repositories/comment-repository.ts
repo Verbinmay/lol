@@ -72,6 +72,8 @@ export const commentsRepository = {
   },
   async createComment (newComment:any){
     commentsCollections.insertOne(newComment)
-    return await commentsRepository.findCommentById(newComment.id)
+    const result = await commentsRepository.findCommentById(newComment.id);
+    return result
+    
   }
 };
