@@ -53,10 +53,10 @@ commentsRouter.put(
       );
       if (updatedComment) {
         res.send(204);
-        return
+        return;
       } else {
         res.send(404);
-        return
+        return;
       }
     } else {
       res.send(404);
@@ -82,10 +82,10 @@ commentsRouter.delete(
       );
       if (deletedComment) {
         res.send(204);
-        return
+        return;
       } else {
         res.send(404);
-        return
+        return;
       }
     } else {
       res.send(404);
@@ -98,7 +98,7 @@ postsRouter.get("/:postId/comments", async (req: Request, res: Response) => {
     res.send(404);
     return;
   }
-  
+
   const foundCommentsByPostId = await commentsRepository.findCommentsByPostId(
     req.params.postId,
     req.query.pageNumber?.toString(),
@@ -106,7 +106,7 @@ postsRouter.get("/:postId/comments", async (req: Request, res: Response) => {
     req.query.sortBy?.toString(),
     req.query.sortDirection?.toString()
   );
-  
+
   if (foundCommentsByPostId) {
     const viewCommentsByPostId = {
       pagesCount: foundCommentsByPostId.pagesCount,
@@ -139,14 +139,14 @@ postsRouter.post(
     const foundedPost = await postsRepository.findPostById(req.params.postId);
     if (!foundedPost) {
       res.send(404);
-      return
+      return;
     }
     const createdComment = await commentsService.createComment(
       req.params.postId,
       req.body.content,
       req.user
     );
-   
+
     if (createdComment) {
       const viewCreatedContent = {
         id: createdComment.id,

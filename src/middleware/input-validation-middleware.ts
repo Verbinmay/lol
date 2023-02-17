@@ -120,7 +120,7 @@ export const loginOrEmailValidation = body("loginOrEmail")
   export const emailCreateValidation = body("email")
   .isEmail()
   .withMessage("Isnt email")
-  .bail()
+ 
   
 export const contentCommentCreateValidation = body("content")
 .isString()
